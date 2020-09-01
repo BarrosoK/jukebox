@@ -1,0 +1,43 @@
+<div fxLayout="row" fxFlexFill class="player"  *ngIf="((video$ | async) !== '')">
+  <div (mousedown)="onResizeStart()" (mouseup)="onResizeEnd(undefined)"
+       [style]="{'width': playerSize.width + 'px',
+       'height': playerSize.height + 'px',
+       'position': 'absolute',
+       'top': '0',
+       'left': '0',
+       'background-color': 'red'}"
+       fxLayout="column"
+       fxLayoutAlign="center center"
+       [hidden]="!showPlayer"
+       mwlResizable
+       [enableGhostResize]="true"
+       [resizeEdges]="{ bottom: true, right: true, top: true, left: true }"
+       (resizeEnd)="onResizeEnd($event)"
+       (cdkDragEnded)="onResizeEnd(undefined)"
+       cdkDrag
+       >
+
+    <div style="background-color: green" cdkDragHandle>test</div>
+    <youtube-player
+                    #player
+                    [width]="playerSize.width - 50"
+                    [height]="playerSize.height - 50"
+                    [videoId]="video$ | async"
+                    [hidden]="resizing | async"
+                    suggestedQuality="highres"
+    ></youtube-player>
+  </div>
+
+  <div style="color: white">{{name$ | async}}</div>
+  <button mdbBtn  type="button" color="primary" rounded="true" mdbWavesEffect (click)="play()">
+    <mdb-icon *ngIf="(playing$ | async) === false" fas icon="play" class="mr-1"></mdb-icon>
+    <mdb-icon *ngIf="(playing$ | async) === true" fas icon="pause" class="mr-1"></mdb-icon>
+  </button>
+
+  <mat-slider min="1" [max]="duration" step="1" [value]="time" (valueChange)="goToTime($event)"></mat-slider>
+  <div style="color: white">{{time}} / {{duration}}</div>
+
+  <button mdbBtn  type="button" color="primary" rounded="true" mdbWavesEffect (click)="showYoutubePlayer()">fleche haut logo
+  </button>
+</div>
+

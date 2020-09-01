@@ -1,0 +1,40 @@
+<div fxFlexFill fxLayout="row"  (keydown.enter)="search()">
+
+  <div style="width: 50%;overflow-y: scroll" fxLayout="column" fxLayoutAlign="start center" class="search-panel">
+
+    <div class="md-form" fxLayout="row" style="width: 80%; padding: 5px">
+      <input mdbInput type="text" name="text" placeholder="Au dd" [(ngModel)]="name" id="form1" class="form-control" style="width: 70%">
+      <label for="form1" class=""></label>
+      <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect (click)="search()" style="width: 30%">Search
+      </button>
+    </div>
+
+    <mat-checkbox style="margin-top: 50px" [checked]="display$ | async" (change)="displayThumbChange($event)">displayThumb</mat-checkbox>
+
+    <mdb-card  *ngFor="let item of (search$ | async).items" class="search-card" >
+      <!--Card image-->
+      <mdb-card-img *ngIf="(display$ | async) === true" (click)="start(item.snippet.title, item.id.videoId)"  [src]="item.snippet.thumbnails.high.url" [alt]="item.snippet.title" style="height: {{item.snippet.thumbnails.high.height}}"></mdb-card-img>
+      <!--Card content-->
+      <mdb-card-body>
+
+        <!--Title-->
+        <mdb-card-title>
+          <h4>{{item.snippet.title}}</h4>
+        </mdb-card-title>
+
+        <!--Text-->
+        <mdb-card-text>{{item.snippet.description}}</mdb-card-text>
+
+        <a mdbBtn (click)="start(item.snippet.title, item.id.videoId)"  color="blue" mdbWavesEffect>Play</a>
+        <a mdbBtn (click)="addToQueue(item.id.videoId)" class="queue-btn" mdbWavesEffect>Add to queue</a>
+        <a mdbBtn color="red" mdbWavesEffect>Open on youtube</a>
+      </mdb-card-body>
+    </mdb-card>
+
+
+  </div>
+  <div style="width: 50%">
+
+  </div>
+
+</div>

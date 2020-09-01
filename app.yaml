@@ -1,0 +1,9 @@
+# [START runtime]
+runtime: nodejs12
+handlers:
+  - url: /
+    static_files: dist/panda/index.html
+    upload: dist/panda/index.html
+  - url: /
+    static_dir: dist/panda
+# [END runtime]

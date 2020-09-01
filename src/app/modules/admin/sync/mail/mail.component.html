@@ -1,0 +1,26 @@
+<div fxFlexFill fxLayoutAlign="center center" *ngIf="!fetching">
+
+  <mdb-card class="card-csv" style="width: 20%;" class="">
+    <mdb-card-body>
+      <label for="dtEnd" class="col-form-label card-title">Start Date:</label>
+      <input mdbInput class="form-control" id="dtStart" [owlDateTimeTrigger]="dtStart" [owlDateTime]="dtStart"
+             (dateTimeChange)="changeStartDate($event.value)">
+      <owl-date-time #dtStart></owl-date-time>
+
+      <label for="dtEnd" class="col-form-label card-title">End Date:</label>
+      <input mdbInput class="form-control" id="dtEnd" [owlDateTimeTrigger]="dtEnd" [owlDateTime]="dtEnd"
+             (dateTimeChange)="changeEndDate($event.value)">
+      <owl-date-time #dtEnd></owl-date-time>
+    </mdb-card-body>
+    <mdb-card-footer>
+      <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect (click)="getCsv()">Generate CSV
+      </button>
+    </mdb-card-footer>
+  </mdb-card>
+</div>
+
+<div style="width: 200px; height: 200px" fxFlexFill fxLayoutAlign="center center" *ngIf="fetching" fxLayout="column">
+  <img src="../../../../../assets/images/panda.png" width="200px">
+  <mat-progress-bar mode="determinate" [value]="(infos.amountDone / infos.nbtotal) * 100" style="width: 400px" class="mt-1"></mat-progress-bar>
+  <div>{{infos.amountDone}} / {{infos.nbtotal}}</div>
+</div>

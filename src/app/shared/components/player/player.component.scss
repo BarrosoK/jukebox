@@ -1,0 +1,16 @@
+@import "src/app/colors";
+
+.player {
+  background: linear-gradient(to bottom, $black 90%, $dark-green);
+}
+
+mwlResizable {
+  box-sizing: border-box;
+}
+
+
+.example-handle {
+  background-color: green;
+  width: 24px;
+  height: 24px;
+}
